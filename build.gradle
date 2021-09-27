@@ -1,0 +1,55 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.hoang'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//GSON
+	implementation 'com.google.code.gson:gson:2.8.7'
+
+	//Netty
+	implementation group: 'io.netty', name: 'netty-all', version: '4.1.67.Final'
+
+	//JSON
+	implementation 'org.json:json:20171018'
+
+	//Log
+	implementation "net.logstash.logback:logstash-logback-encoder:6.6"
+	implementation "ch.qos.logback:logback-classic:1.2.3"
+
+	//	==== HIBERNATE/JPA ====
+	implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.5.3.Final'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
+	//Log back
+	implementation "net.logstash.logback:logstash-logback-encoder:6.6"
+	implementation "ch.qos.logback:logback-classic:1.2.3"
+
+}
+
+test {
+	useJUnitPlatform()
+}
