@@ -11,6 +11,5 @@ public interface WebSocketServer {
     void broadcast(WsMessage message);
     ChannelGroup getChannelGroup();
     Map<String, ChannelGroup> getChannelGroupMap();
-    void stackData(StockRealTimeEntity message);
-    CopyOnWriteArrayList<StockRealTimeEntity> getData();
+    void addQueue(String message);
 }

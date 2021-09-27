@@ -41,7 +41,7 @@ public class NettySocketServer implements WebSocketServer{
 
     private final ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private final Map<String, ChannelGroup> channelGroupMap = new HashMap<>();
-    private final CopyOnWriteArrayList<StockRealTimeEntity> data = new CopyOnWriteArrayList<>();
+    private final BlockingQueue<String> blockingQueue = new LinkedBlockingQueue<>();
 
     @Value("${server.netty.port}")
     private int port;
@@ -94,13 +94,8 @@ public class NettySocketServer implements WebSocketServer{
     }
 
     @Override
-    public void stackData(StockRealTimeEntity data) {
-        this.data.add(data);
-    }
-
-    @Override
-    public CopyOnWriteArrayList<StockRealTimeEntity> getData() {
-        return data;
+    public void addQueue(String message) {
+        blockingQueue.offer(message);
     }
 
     @Bean
@@ -108,8 +103,8 @@ public class NettySocketServer implements WebSocketServer{
         new Thread(() -> {
             try {
                 while (true) {
-                    broadcast(WsMessage.buildData(data));
-                    data.clear();
+                    String message = blockingQueue.take();
+                    broadcast(WsMessage.buildData(message));
                     Thread.sleep(50);
                     }
                 }
@@ -118,4 +113,5 @@ public class NettySocketServer implements WebSocketServer{
             }
         }).start();
     }
+
 }
