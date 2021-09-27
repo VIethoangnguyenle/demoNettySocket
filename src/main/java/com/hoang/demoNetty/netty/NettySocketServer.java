@@ -3,8 +3,6 @@ package com.hoang.demoNetty.netty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hoang.demoNetty.dto.WsMessage;
-import com.hoang.demoNetty.entity.StockRealTimeEntity;
-import com.hoang.demoNetty.multithread.FakeDataThread;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
@@ -27,7 +25,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Slf4j

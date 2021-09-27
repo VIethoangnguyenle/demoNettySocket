@@ -1,0 +1,16 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+option java_package = "com.hoang.plugins";
+
+service StreamDataService {
+  rpc StreamData(stream IndexDataStream) returns(google.protobuf.Empty);
+}
+
+message IndexDataStream {
+  repeated DataStream dataStream = 1;
+
+}
+message DataStream {
+  string name = 1;
+  string data = 2;
+}
